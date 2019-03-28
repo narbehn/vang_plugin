@@ -38,7 +38,9 @@ public class VanguardPlugin extends Plugin {
     protected void shutDown() throws Exception
     {
         overlayManager.remove(overlay);
-        
+        overlay.right_mage_str = "-";
+        overlay.right_range_str = "-";
+        overlay.right_melee_str = "-";
     }
 
 
