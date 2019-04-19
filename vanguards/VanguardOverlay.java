@@ -29,11 +29,16 @@ public class VanguardOverlay extends Overlay {
     private static final int MAGE_VANGUARD_ID = 7525; //i think
     private static final int RANGE_VANGUARD_ID = 7528;
     private static final int MELEE_VANGUARD_ID = 7527;
-    private final NPCManager npcManager;
+    //private final NPCManager npcManager;
 
-    private Integer mageHp = null;
-    private Integer rangeHp = null;
-    private Integer meleeHp = null;
+    private int mageHp = -1;
+    private float magePercent = 0;
+
+    private int rangeHp = -1;
+    private float rangePercent = 0;
+
+    private int meleeHp = -1;
+    private float meleePercent = 0;
 
     public String right_mage_str, right_range_str, right_melee_str = "";
 
@@ -42,13 +47,12 @@ public class VanguardOverlay extends Overlay {
 
 
     @Inject
-    public VanguardOverlay(VanguardPlugin plugin, NPCManager npcManager) {
+    public VanguardOverlay(VanguardPlugin plugin) {
         super(plugin);//?
         this.plugin = plugin;
 
         setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
         //this.opponentInfoPlugin = opponentInfoPlugin;
-        this.npcManager = npcManager;
     }
 
     @Override
@@ -63,30 +67,37 @@ public class VanguardOverlay extends Overlay {
             {
                 int id = ((NPC) opponent).getId();
                 String name = opponent.getName();
-                if(id == MAGE_VANGUARD_ID && name.equals("Vanguard"))
+
+                if(id == MAGE_VANGUARD_ID) //maybe check name.equals("Vanguard")
                 {
-                    mageHp = npcManager.getHealth(name, opponent.getCombatLevel());
+                    magePercent = (float)opponent.getHealthRatio() / opponent.getHealth() * 100;
+                    mageHp = (int)magePercent;
                     right_mage_str = Integer.toString(mageHp);
 
                     //testing purposes
-                    System.out.println(mageHp);
-                    System.out.println("mage" + id);
-                    System.out.println(opponent.getName());
+                    if(id != MAGE_VANGUARD_ID)
+                    {
+                        System.out.println(name + id);
+                    }
                 }
-                else if (id == RANGE_VANGUARD_ID && name.equals("Vanguard"))
+                else if (id == RANGE_VANGUARD_ID)
                 {
-                    rangeHp = npcManager.getHealth(name, opponent.getCombatLevel());
+                    rangePercent = (float)opponent.getHealthRatio() / opponent.getHealth() * 100;
+                    rangeHp = (int)rangePercent;
                     right_range_str = Integer.toString(rangeHp);
+
                     System.out.println(rangeHp);
-                    System.out.println("range" + id);
                     System.out.println(opponent.getName());
                 }
-                else if (id == MELEE_VANGUARD_ID && name.equals("Vanguard"))
+                else if (id == MELEE_VANGUARD_ID)
                 {
-                    meleeHp = npcManager.getHealth(name, opponent.getCombatLevel());
+                    meleePercent = (float)opponent.getHealthRatio()/opponent.getHealth() * 100;
+                    meleeHp = (int)meleePercent;
                     right_melee_str = Integer.toString(meleeHp);
+
+
                     System.out.println(meleeHp);
-                    System.out.println("melee" + id);
+
                     System.out.println(opponent.getName());
                 }
             }
