@@ -26,7 +26,7 @@ public class VanguardOverlay extends Overlay {
     private VanguardPlugin plugin;
     private final PanelComponent panelComponent = new PanelComponent();
 
-    private static final int MAGE_VANGUARD_ID = 7525; //i think
+    private static final int MAGE_VANGUARD_ID = 7529;
     private static final int RANGE_VANGUARD_ID = 7528;
     private static final int MELEE_VANGUARD_ID = 7527;
     //private final NPCManager npcManager;
@@ -73,12 +73,7 @@ public class VanguardOverlay extends Overlay {
                     magePercent = (float)opponent.getHealthRatio() / opponent.getHealth() * 100;
                     mageHp = (int)magePercent;
                     right_mage_str = Integer.toString(mageHp);
-
-                    //testing purposes
-                    if(id != MAGE_VANGUARD_ID)
-                    {
-                        System.out.println(name + id);
-                    }
+                    System.out.println("mager");
                 }
                 else if (id == RANGE_VANGUARD_ID)
                 {
@@ -86,8 +81,7 @@ public class VanguardOverlay extends Overlay {
                     rangeHp = (int)rangePercent;
                     right_range_str = Integer.toString(rangeHp);
 
-                    System.out.println(rangeHp);
-                    System.out.println(opponent.getName());
+                    System.out.println("ranger");
                 }
                 else if (id == MELEE_VANGUARD_ID)
                 {
@@ -96,9 +90,7 @@ public class VanguardOverlay extends Overlay {
                     right_melee_str = Integer.toString(meleeHp);
 
 
-                    System.out.println(meleeHp);
-
-                    System.out.println(opponent.getName());
+                    System.out.println("meleer");
                 }
             }
         //}
